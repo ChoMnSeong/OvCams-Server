@@ -74,7 +74,9 @@ export class LikeService {
       relations: ['camping'],
     });
 
-    return existingLikes.map((like) => {
+    const validLikes = existingLikes.filter((like) => like.is_Valid === true);
+
+    return validLikes.map((like) => {
       const camping = like.camping;
       camping.like = true;
       return camping;
