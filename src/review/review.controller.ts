@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Headers, Param } from '@nestjs/common';
+import { Body, Controller, Post, Headers, Param, Get } from '@nestjs/common';
 import { ReviewService } from './review.service';
 import { ReviewDto } from './dto/review.dto';
 
@@ -19,6 +19,16 @@ export class ReviewController {
       data,
       statusCode: 201,
       statusMsg: '댓글 작성 성공',
+    });
+  }
+
+  @Get('/')
+  async getAllReviewedCamping(@Headers('Authorization') token: any) {
+    const data = await this.reviewService.getAllReviewed(token);
+    return Object.assign({
+      data,
+      statusCode: 200,
+      statusMsg: '조회 성공',
     });
   }
 }
