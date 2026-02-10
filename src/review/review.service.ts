@@ -10,7 +10,7 @@ import { AuthService } from 'src/auth/auth.service';
 export class ReviewService {
   constructor(
     @InjectRepository(UserCampingReviewsEntity)
-    private userCampingLikesEntity: Repository<UserCampingReviewsEntity>,
+    private userCampingReviewEntity: Repository<UserCampingReviewsEntity>,
     @InjectRepository(AuthEntity) private authEntity: Repository<AuthEntity>,
     @InjectRepository(CampingEntity)
     private campingEntity: Repository<CampingEntity>,
@@ -28,7 +28,7 @@ export class ReviewService {
       throw new NotFoundException('Camping not found');
     }
 
-    const savedReview = await this.userCampingLikesEntity.save({
+    const savedReview = await this.userCampingReviewEntity.save({
       user,
       camping,
       content,
