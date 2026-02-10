@@ -36,4 +36,18 @@ export class ReviewService {
 
     return savedReview;
   }
+
+  async getAllReviewed(token: string) {
+    const { email } = await this.authService.validateAccess(token);
+    const user = await this.authEntity.findOneBy({ email });
+    const existingReview = await this.userCampingReviewEntity.find({
+      where: { user },
+      relations: ['camping'],
+    });
+    return existingReview.map((review) => ({
+      id: review.id,
+      content: review.content,
+      ...review.camping,
+    }));
+  }
 }
